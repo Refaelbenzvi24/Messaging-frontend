@@ -2,9 +2,8 @@
 
 ## Description
 
-This project is a single page application. <br/>
-It's a web chat developed using [Socket.io](https://socket.io/).
-
+This project is the cline side of the messaging app. <br/>
+It's a single page web chat application built with React and [Socket.io](https://socket.io/).
 
 ## Getting Started
 
