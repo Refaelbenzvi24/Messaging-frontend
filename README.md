@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is the cline side of the messaging app. <br/>
+This project is the cline side of the messaging service. <br/>
 It's a single page web chat application built with React and [Socket.io](https://socket.io/).
 
 ## Getting Started
