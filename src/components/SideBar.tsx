@@ -13,14 +13,17 @@ import SideBarLink from './UI/SideBar/SideBarLink'
 import {auth} from "../services"
 import MessagesHistory from "./SideBar/MessagesHistory"
 import Title from "./UI/Typograpy/Title";
+import {contextManager} from "../context";
 
 
 export default () => {
 	const {t} = useTranslation()
 	const navigate = useNavigate()
+	const {clearUserContextRefs} = contextManager()
 	
 	const logout = async () => {
 		await auth.logout(() => {
+			clearUserContextRefs()
 			navigate("/login")
 		})
 	}

@@ -1,15 +1,14 @@
-import React, {ReactElement, useContext, useEffect, useState} from 'react'
+import React, {MutableRefObject, ReactElement, useContext, useEffect, useRef} from 'react'
 import io, {Socket} from 'socket.io-client'
-import {Vars} from "../modules/vars";
-import {TokenStorage} from "../modules/TokenStorage";
-import {useMessages, useUsersStatus} from "./index";
-import {UserStatus} from "./UsersStatusProvider";
-import message from "../components/Home/Message";
-import {MessageProps} from "../modules/Entities/Message";
+import {Vars} from "../modules/vars"
+import {TokenStorage} from "../modules/TokenStorage"
+import {useMessages, useUsersStatus} from "./index"
+import message from "../components/Home/Message"
+import {Message} from "../modules/Entities/Message"
 
 interface SocketContext {
 	socket: Socket
-	setSocket: (socket: Socket) => void
+	newSocketRef: () => void
 }
 
 export interface SocketProviderOptions {
@@ -18,42 +17,37 @@ export interface SocketProviderOptions {
 
 export const SocketContext = React.createContext<SocketContext>({} as SocketContext)
 
-export function useSocket() {
-	return useContext(SocketContext)
-}
-
 export function SocketProvider({children}: SocketProviderOptions) {
-	const [socket, setSocket] = useState<Socket>(io(Vars.api.url))
+	const socketRef = useRef<Socket>(io(Vars.api.url))
 	const {setUsersStatus} = useUsersStatus()
 	const {updateMessages} = useMessages()
 	
-	const authenticated = async () => await TokenStorage.isAuthenticated()
+	const newSocketRef = () => {
+		socketRef.current = io(Vars.api.url)
+	}
+	
 	useEffect(() => {
-		if (TokenStorage.getRefreshToken() && TokenStorage.getRefreshToken().length > 0) {
-			socket.on('connect', () => {
-				socket.emit("", TokenStorage.getUserId())
-				
-				socket.on("usersList", (usersList: []) => {
-					setUsersStatus(usersList)
+		if (TokenStorage.isAuthenticated()) {
+			socketRef.current.emit("", TokenStorage.getUserId())
+			
+			socketRef.current.on("usersList", (usersList: []) => {
+				setUsersStatus(usersList)
+			})
+			
+			socketRef.current.on("message", (data) => {
+				const message = new Message({
+					message: data.message,
+					fromMe: false
 				})
 				
-				socket.on("message", (data) => {
-					updateMessages(data.message, data.username, data.senderPublicId, data.socketId)
-				})
-				
-				socket.on("usersListBroadcast", (usersList: UserStatus[]) => {
-					usersList.map(user => user.username !== TokenStorage.getUserName())
-					
-					setUsersStatus(usersList)
-				})
+				updateMessages(message, data.username, data.publicId, data.socketId)
 			})
 		}
 		
-		
 		return () => {
-			socket.close()
+			socketRef.current?.close()
 		}
 	}, [])
 	
-	return (<SocketContext.Provider value={{socket, setSocket}}>{children}</SocketContext.Provider>)
+	return (<SocketContext.Provider value={{socket: socketRef.current, newSocketRef}}>{children}</SocketContext.Provider>)
 }

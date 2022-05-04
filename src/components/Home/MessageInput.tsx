@@ -3,10 +3,20 @@ import {BaseSyntheticEvent, useEffect, useState} from "react";
 import {useMessages, useSocket, useUsersStatus} from "../../context";
 import {Message} from "../../modules/Entities/Message";
 import {TokenStorage} from "../../modules/TokenStorage";
+import {UserStatus} from "../../context/UsersStatusProvider";
 
 interface MessageInputProps {
 	publicId: string
 	socketId: string
+}
+
+/**
+ * Return user socket id for a given public id and users array.
+ * @param users { UserStatus[]} users array.
+ * @param publicId {string} user public id.
+ */
+const getUserSocketId = (users: UserStatus[], publicId: string) => {
+	return users[users.findIndex(user => user.publicId === publicId)]?.socketId || undefined
 }
 
 export default (props: MessageInputProps) => {
@@ -18,17 +28,19 @@ export default (props: MessageInputProps) => {
 	
 	const sendMessage = (event: BaseSyntheticEvent) => {
 		event.preventDefault()
-		const socketId = usersStatus[usersStatus.findIndex(user => user.publicId === props.publicId)].socketId
-		socket.emit("message", {message: message, socketId: props.socketId ?? socketId, publicId: props.publicId})
-		
-		const newMessage = new Message({
-			message: message,
-			fromMe: true
-		})
-		
-		updateMessages(newMessage, TokenStorage.getUserName(), props.publicId, props.socketId ?? socketId)
-		
-		setMessage('')
+		if (message.length > 0) {
+			const socketId = getUserSocketId(usersStatus, props.publicId)
+			socket.emit("message", {message: message, socketId: props.socketId ?? socketId, publicId: props.publicId})
+			
+			const newMessage = new Message({
+				message: message,
+				fromMe: true
+			})
+			
+			updateMessages(newMessage, TokenStorage.getUserName(), props.publicId, props.socketId ?? socketId)
+			
+			setMessage('')
+		}
 	}
 	
 	return (
@@ -43,7 +55,8 @@ export default (props: MessageInputProps) => {
 				
 				<Col className="place-self-center">
 					<button className="w-17 h-12 py-2 px-3 mx-3 bg-gray-200 dark:bg-dark-400 opacity-95
-		          rounded-md shadow-sm focus:outline-none active:bg-gray-100 dark:active:bg-dark-600" type="submit">
+		          rounded-md shadow-sm focus:outline-none active:bg-gray-100 dark:active:bg-dark-600"
+					        type="submit">
 						{t("Send")}
 					</button>
 				</Col>

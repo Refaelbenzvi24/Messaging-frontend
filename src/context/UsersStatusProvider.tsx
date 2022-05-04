@@ -1,4 +1,5 @@
 import React, {ReactElement, useEffect, useState} from 'react'
+import {useSocket} from "./index";
 
 export interface UserStatus {
 	socketId: string
@@ -21,6 +22,6 @@ export const UsersStatusContext = React.createContext<UsersStatusContext>({} as 
 
 export function UsersStatusProvider({children}: UsersStatusProviderOptions) {
 	const [usersStatus, setUsersStatus] = useState<UserStatus[]>([])
-
+	
 	return (<UsersStatusContext.Provider value={{usersStatus, setUsersStatus}}>{children}</UsersStatusContext.Provider>)
 }

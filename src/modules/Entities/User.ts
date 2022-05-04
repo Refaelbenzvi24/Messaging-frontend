@@ -2,6 +2,7 @@ import Entity, {EntityProps} from './Entity'
 import {cloneDeep} from 'lodash'
 import {TokenStorage} from "../TokenStorage";
 import {LoginResult, RegisterResult} from "../../services/Auth/types";
+import {LocalStorage} from "../LocalStorage";
 
 interface UserProps extends EntityProps {
 	id: string
@@ -35,6 +36,7 @@ export class User extends Entity {
 		TokenStorage.storeUserName(data.user.name)
 		TokenStorage.storeUserId(data.user.id)
 		TokenStorage.storePublicId(data.user.publicId)
+		LocalStorage.setMessages([])
 	}
 	
 	static clearUserData() {
@@ -44,6 +46,7 @@ export class User extends Entity {
 		localStorage.removeItem(TokenStorage.LOCAL_USER_NAME)
 		localStorage.removeItem(TokenStorage.LOCAL_USER_ID)
 		localStorage.removeItem(TokenStorage.LOCAL_PUBLIC_ID)
+		localStorage.removeItem(LocalStorage.MESSAGES)
 	}
 }
 

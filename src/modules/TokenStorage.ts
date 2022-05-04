@@ -14,7 +14,7 @@ export class TokenStorage {
 	
 	
 	
-	static async isAuthenticated() {
+	static isAuthenticated() {
 		return this.getRefreshToken()
 	}
 	

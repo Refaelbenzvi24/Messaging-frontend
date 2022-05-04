@@ -3,6 +3,7 @@ import {ApiResult, LoginResult, RegisterResult} from "./types";
 import axios from "axios";
 import {TokenStorage} from "../../modules/TokenStorage";
 import {User} from "../../modules/Entities/User";
+import {clearUserContextRefs} from "../../context";
 
 export default class Auth extends ApiUrlService {
 	

@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 
 import { LocalStorage } from '../../../modules/LocalStorage'
@@ -16,7 +15,7 @@ const rawSetTheme = (theme: ThemeName) => {
 	LocalStorage.setTheme(theme)
 }
 
-export default ({ children }: ThemeProviderOptions): ReactElement => {
+export default ({ children }: ThemeProviderOptions) => {
 	const [theme, setTheme] = useState<ThemeName>(getInitialTheme)
 
 	useEffect(() => {

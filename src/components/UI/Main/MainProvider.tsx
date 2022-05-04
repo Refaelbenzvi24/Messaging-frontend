@@ -4,7 +4,7 @@ import { defaultMainData, MainContext } from './MainContext'
 import type { MainProviderOptions } from './types'
 
 
-export default (props: MainProviderOptions): ReactElement => {
+export default (props: MainProviderOptions) => {
 	const {
 		      sideBarState: defaultSideBarState,
 		      sideBarOpts:  defaultSideBarOptions,
