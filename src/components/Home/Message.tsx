@@ -3,12 +3,8 @@ import Card from "../UI/Cards/Card";
 import i18n from "i18next";
 import clsx from "clsx";
 import {CircleAvatar} from "../UI/Avatar";
+import {MessageProps} from "../../modules/Entities/Message";
 
-interface MessageProps {
-	time: number
-	fromMe: boolean,
-	message: string
-}
 
 export default (params: MessageProps) => {
 	const dir = i18n.dir()

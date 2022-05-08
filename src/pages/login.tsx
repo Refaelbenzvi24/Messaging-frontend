@@ -1,12 +1,11 @@
 import {Col, Row} from "../components/UI/Grid";
-import {BaseSyntheticEvent, FormEventHandler, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {auth} from "../services"
-import {TokenStorage} from "../modules/TokenStorage";
 import {User} from "../modules/Entities/User";
-import {ApiResult, LoginResult, RegisterResult} from "../services/Auth/types";
+import {LoginResult} from "../services/Auth/types";
 import {useFormik} from "formik";
 import * as Yup from "yup";
+import TextField from "../components/UI/Form/TextField";
 
 
 export default () => {
@@ -20,12 +19,14 @@ export default () => {
 		},
 		validationSchema: Yup.object({
 			email: Yup.string()
-				.email(t('email_invalid'))
-				.required(t('email_required')),
+				.email(t('email invalid'))
+				.required(t('email required')),
 			password: Yup.string()
-				.min(6, t('password_min_length'))
-				.required(t('password_required'))
+				.min(6, t('password min length'))
+				.required(t('password required'))
 		}),
+		validateOnChange: false,
+		validateOnBlur: false,
 		onSubmit: async (values) => {
 			const {email, password} = values
 			
@@ -49,26 +50,24 @@ export default () => {
 				<Row className="w-full justify-center">
 					<Col className="pt-80 w-full">
 						<form onSubmit={formik.handleSubmit}>
-							<div className="w-full flex justify-center p-1">
-								<input placeholder={t("Email")}
-								       id="email"
-								       onChange={formik.handleChange}
-								       value={formik.values.email}
-								       className="w-[60%] h-13 py-2 px-3 border border-2 border-gray-200 bg-gray-50 dark:bg-dark-800 dark:border-dark-400
-		          rounded-md shadow-sm focus:outline-none focus:ring-transparent focus:border-gray-300 dark:focus:border-dark-200 resize-none text-center"/>
-							</div>
+							<TextField id="email"
+							           className="w-[60%] m-auto"
+							           placeholder={t('email')}
+							           value={formik.values.email}
+							           onChange={formik.handleChange}
+							           onBlur={() => formik.validateField('email')}
+							           error={formik.errors.email}/>
 							
-							<div className="w-full flex justify-center p-1 pt-4">
-								<input placeholder={t("Password")}
-								       id="password"
-								       onChange={formik.handleChange}
-								       value={formik.values.password}
-								       type="password"
-								       className="w-[60%] h-13 py-2 px-3 border border-2 border-gray-200 bg-gray-50 dark:bg-dark-800 dark:border-dark-400
-		          rounded-md shadow-sm focus:outline-none focus:ring-transparent focus:border-gray-300 dark:focus:border-dark-200 resize-none text-center"/>
-							</div>
+							<TextField id="password"
+							           className="pt-2 w-[60%] m-auto"
+							           placeholder={t("Password")}
+							           onChange={formik.handleChange}
+							           onBlur={() => formik.validateField('password')}
+							           value={formik.values.password}
+							           type="password"
+							           error={formik.errors.password}/>
 							
-							<div className="w-full flex justify-center pt-4">
+							<div className="w-full flex justify-center pt-2">
 								<button className="w-40 h-10 py-1 px-3 mx-3 bg-gray-200 dark:bg-dark-400 opacity-95
 		          rounded-md shadow-sm focus:outline-none active:bg-gray-100 dark:active:bg-dark-600" type="submit">
 									{t("Login")}

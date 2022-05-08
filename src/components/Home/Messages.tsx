@@ -1,7 +1,7 @@
 import {Col, Row} from "../UI/Grid";
 import Card from "../UI/Cards/Card";
 import Message from "./Message";
-import {BaseSyntheticEvent, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import MessageInput from "./MessageInput";
 import {useMessages} from "../../context";
 import {MessagesProps} from "../../modules/Entities/Messages";

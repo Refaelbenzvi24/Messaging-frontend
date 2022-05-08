@@ -1,9 +1,7 @@
 import ApiUrlService, {ApiUrlServiceProps} from '../../modules/ApiUrlService'
 import {ApiResult, LoginResult, RegisterResult} from "./types";
-import axios from "axios";
 import {TokenStorage} from "../../modules/TokenStorage";
 import {User} from "../../modules/Entities/User";
-import {clearUserContextRefs} from "../../context";
 
 export default class Auth extends ApiUrlService {
 	
@@ -50,6 +48,7 @@ export default class Auth extends ApiUrlService {
 					refreshToken: TokenStorage.getRefreshToken(),
 					email: TokenStorage.getUserEmail(),
 				})
+				
 				TokenStorage.storeToken(response.data?.accessToken)
 				TokenStorage.storeRefreshToken(response.data?.refreshToken)
 				return response.data?.accessToken

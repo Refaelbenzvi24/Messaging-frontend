@@ -1,5 +1,5 @@
 import {Col, Row} from "../UI/Grid";
-import {BaseSyntheticEvent, useEffect, useState} from "react";
+import {BaseSyntheticEvent, useState} from "react";
 import {useMessages, useSocket, useUsersStatus} from "../../context";
 import {Message} from "../../modules/Entities/Message";
 import {TokenStorage} from "../../modules/TokenStorage";
@@ -7,7 +7,6 @@ import {UserStatus} from "../../context/UsersStatusProvider";
 
 interface MessageInputProps {
 	publicId: string
-	socketId: string
 }
 
 /**
@@ -16,7 +15,7 @@ interface MessageInputProps {
  * @param publicId {string} user public id.
  */
 const getUserSocketId = (users: UserStatus[], publicId: string) => {
-	return users[users.findIndex(user => user.publicId === publicId)]?.socketId || undefined
+	return users[users.findIndex(user => user.publicId === publicId)]?.socketId
 }
 
 export default (props: MessageInputProps) => {
@@ -30,14 +29,14 @@ export default (props: MessageInputProps) => {
 		event.preventDefault()
 		if (message.length > 0) {
 			const socketId = getUserSocketId(usersStatus, props.publicId)
-			socket.emit("message", {message: message, socketId: props.socketId ?? socketId, publicId: props.publicId})
+			socket.emit("message", {message: message, socketId, publicId: props.publicId})
 			
 			const newMessage = new Message({
 				message: message,
 				fromMe: true
 			})
 			
-			updateMessages(newMessage, TokenStorage.getUserName(), props.publicId, props.socketId ?? socketId)
+			updateMessages(newMessage, TokenStorage.getUserName(), props.publicId, socketId)
 			
 			setMessage('')
 		}
