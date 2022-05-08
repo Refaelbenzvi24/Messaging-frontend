@@ -26,11 +26,11 @@ export default () => {
 	})
 	
 	return (
-				<Providers>
-					<RecoilRoot>
-						<ReloadPrompt/>
-						<Pages/>
-					</RecoilRoot>
-				</Providers>
+		<Providers>
+			<RecoilRoot>
+				<ReloadPrompt/>
+				<Pages/>
+			</RecoilRoot>
+		</Providers>
 	)
 }
