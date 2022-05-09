@@ -1,7 +1,7 @@
 {
 	"name": "messaging-frontend",
 	"version": "1.0.0",
-	"description": "vite react windicss boilerplate",
+	"description": "messaging service frontend",
 	"main": "./dist/main.tsx",
 	"author": "Refael Ben Zvi",
 	"license": "MIT",
@@ -173,13 +173,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Refaelbenzvi24/Messaging-frontent.git"
+		"url": "git+https://github.com/Refaelbenzvi24/Messaging-frontend.git"
 	},
 	"keywords": [],
 	"bugs": {
-		"url": "https://github.com/Refaelbenzvi24/Messaging-frontent/issues"
+		"url": "https://github.com/Refaelbenzvi24/Messaging-frontend/issues"
 	},
-	"homepage": "https://github.com/Refaelbenzvi24/Messaging-frontent/#readme",
+	"homepage": "https://github.com/Refaelbenzvi24/Messaging-frontend/#readme",
 	"msw": {
 		"workerDirectory": "public"
 	}

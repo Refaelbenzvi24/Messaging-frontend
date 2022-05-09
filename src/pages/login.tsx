@@ -6,11 +6,21 @@ import {LoginResult} from "../services/Auth/types";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import TextField from "../components/UI/Form/TextField";
+import {useAuth} from "../context";
+import {useEffect} from "react";
+import {TokenStorage} from "../modules/TokenStorage";
 
 
 export default () => {
 	const {t} = useTranslation()
 	const navigate = useNavigate()
+	const {setIsAuthenticated} = useAuth()
+	
+	useEffect(() => {
+		if (TokenStorage.isAuthenticated()) {
+			navigate("/")
+		}
+	}, [])
 	
 	const formik = useFormik({
 		initialValues: {
@@ -20,10 +30,7 @@ export default () => {
 		validationSchema: Yup.object({
 			email: Yup.string()
 				.email(t('email invalid'))
-				.required(t('email required')),
-			password: Yup.string()
-				.min(6, t('password min length'))
-				.required(t('password required'))
+				.required(t('email required'))
 		}),
 		validateOnChange: false,
 		validateOnBlur: false,
@@ -32,6 +39,7 @@ export default () => {
 			
 			const result = await auth.login(email, password)
 			User.storeUserData(result.data as LoginResult)
+			setIsAuthenticated(true)
 			navigate('/')
 		}
 	})
@@ -62,10 +70,8 @@ export default () => {
 							           className="pt-2 w-[60%] m-auto"
 							           placeholder={t("Password")}
 							           onChange={formik.handleChange}
-							           onBlur={() => formik.validateField('password')}
 							           value={formik.values.password}
-							           type="password"
-							           error={formik.errors.password}/>
+							           type="password"/>
 							
 							<div className="w-full flex justify-center pt-2">
 								<button className="w-40 h-10 py-1 px-3 mx-3 bg-gray-200 dark:bg-dark-400 opacity-95

@@ -23,7 +23,7 @@ export default () => {
 		(async () => {
 			await TokenStorage.checkForToken()
 		})()
-	})
+	}, [])
 	
 	return (
 		<Providers>

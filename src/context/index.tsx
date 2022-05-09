@@ -5,8 +5,7 @@ import {SocketProvider, SocketContext} from "./SocketProvider"
 import {UsersStatusContext, UsersStatusProvider} from "./UsersStatusProvider";
 import {MessagesContext, MessagesProvider} from "./MessagesProvider";
 import CombineComponents from "./CombineComponents";
-import io from "socket.io-client";
-import {Vars} from "../modules/vars";
+import {AuthContext, AuthProvider} from "./AuthProvider";
 
 export interface ProvidersProps {
 	children: ReactElement;
@@ -15,6 +14,7 @@ export interface ProvidersProps {
 const providers = [
 	ThemeProvider,
 	MainProvider,
+	AuthProvider,
 	UsersStatusProvider,
 	MessagesProvider,
 	SocketProvider
@@ -31,14 +31,16 @@ export default (props: ProvidersProps) => {
 }
 
 export const contextManager = () => {
-	const {newSocketRef} = useSocket()
+	const {stopSocketConnection} = useSocket()
 	const {setUsersStatus} = useUsersStatus()
 	const {setMessages} = useMessages()
+	const {setIsAuthenticated} = useAuth()
 	
 	const clearUserContextRefs = () => {
-		newSocketRef()
+		stopSocketConnection()
 		setUsersStatus([])
 		setMessages([])
+		setIsAuthenticated(false)
 	}
 	
 	return {clearUserContextRefs}
@@ -50,3 +52,5 @@ export const useSocket = () => useContext(SocketContext)
 export const useUsersStatus = () => useContext(UsersStatusContext)
 
 export const useMessages = () => useContext(MessagesContext)
+
+export const useAuth = () => useContext(AuthContext)

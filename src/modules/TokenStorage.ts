@@ -1,21 +1,19 @@
 import {auth} from "../services";
-import {LocalStorage} from "./LocalStorage";
 
 
 export class TokenStorage {
 	
-	static accessToken                 = ''
-	static LOCAL_STORAGE_TOKEN         = 'token'
+	static accessToken = ''
+	static LOCAL_STORAGE_TOKEN = 'token'
 	static LOCAL_STORAGE_REFRESH_TOKEN = 'refresh_token'
-	static LOCAL_USER_EMAIL            = 'user_email'
-	static LOCAL_USER_NAME             = 'user_name'
-	static LOCAL_USER_ID               = 'user_id'
+	static LOCAL_USER_EMAIL = 'user_email'
+	static LOCAL_USER_NAME = 'user_name'
+	static LOCAL_USER_ID = 'user_id'
 	static LOCAL_PUBLIC_ID = 'public_id'
 	
 	
-	
-	static isAuthenticated() {
-		return this.getRefreshToken()
+	static isAuthenticated(): boolean {
+		return !!TokenStorage.getRefreshToken()
 	}
 	
 	static hasRefreshToken() {
@@ -63,7 +61,7 @@ export class TokenStorage {
 		localStorage.setItem(TokenStorage.LOCAL_PUBLIC_ID, publicId)
 	}
 	
-	static getRefreshToken() {
+	static getRefreshToken(): string | null {
 		return localStorage.getItem(TokenStorage.LOCAL_STORAGE_REFRESH_TOKEN)
 	}
 	
