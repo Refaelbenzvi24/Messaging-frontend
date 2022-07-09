@@ -1,24 +1,24 @@
 import Col from "../UI/Grid/Col"
 import Row from "../UI/Grid/Row"
-import {useUsersStatus} from "../../context"
+import { useUsersStatus } from "../../context"
 import MessageButton from "./MessageButton"
-import Title from "../UI/Typograpy/Title";
+import Title from "../UI/Typograpy/Title"
+import { useSelector } from "react-redux"
+import { IRootState } from "../../store"
 
 
 export default () => {
-	const {usersStatus} = useUsersStatus()
-	const transformedUsersStatus = usersStatus.map(userStatus => {
-		return {
-			socketId: userStatus.socketId,
-			username: userStatus.username,
-			publicId: userStatus.publicId,
-			lastMessage: '',
-			timeSent: '',
-			online: userStatus.online
-		}
-	})
-	
-	
+	const { usersStatus }        = useSelector((state: IRootState) => state.usersStatus)
+	const transformedUsersStatus = usersStatus.map(userStatus => ({
+		socketId:    userStatus.socketId,
+		username:    userStatus.username,
+		publicId:    userStatus.publicId,
+		lastMessage: '',
+		timeSent:    '',
+		online:      userStatus.online
+	}))
+
+
 	return (
 		<Row className="w-full py-4">
 			<Col className="w-full">

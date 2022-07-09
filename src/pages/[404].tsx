@@ -10,7 +10,7 @@ const credit = {
 export default () => {
 	return (
 		<div dir="ltr">
-			
+
 			<div className="absolute flex w-full h-full bottom-0 justify-center items-end">
 				<Subtitle className="justify-self-center z-3 mb-5">
 					Credit to
@@ -21,11 +21,11 @@ export default () => {
 					</a>
 				</Subtitle>
 			</div>
-			
+
 			<div className="absolute w-full h-full top-0">
 				<Error404/>
 			</div>
-		
+
 		</div>
 	)
 }

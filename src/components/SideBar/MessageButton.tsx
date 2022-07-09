@@ -1,11 +1,12 @@
-import Row from "../UI/Grid/Row";
-import Col from "../UI/Grid/Col";
-import LongDivider from "../UI/Dividers/LongDivider";
-import Title from "../UI/Typograpy/Title";
-import Subtitle from "../UI/Typograpy/Subtitle";
-import {CircleAvatar} from "../UI/Avatar";
-import {Link} from "react-router-dom";
-import FlatButton from "../UI/Buttons/FlatButton";
+import Row from "../UI/Grid/Row"
+import Col from "../UI/Grid/Col"
+import LongDivider from "../UI/Dividers/LongDivider"
+import Title from "../UI/Typograpy/Title"
+import Subtitle from "../UI/Typograpy/Subtitle"
+import { CircleAvatar } from "../UI/Avatar"
+import { Link } from "react-router-dom"
+import FlatButton from "../UI/Buttons/FlatButton"
+
 
 interface MessageButtonProps {
 	index: number
@@ -18,8 +19,8 @@ interface MessageButtonProps {
 }
 
 export default (props: MessageButtonProps) => {
-	const {index, publicId, socketId, username, lastMessage, timeSent} = props
-	
+	const { index, publicId, socketId, username, lastMessage, timeSent } = props
+
 	return (
 		<Row className="w-full">
 			<FlatButton className="w-full">
@@ -32,7 +33,7 @@ export default (props: MessageButtonProps) => {
 									<IconPhUserDuotone/>
 								</CircleAvatar>
 							</Col>
-							
+
 							<Col className="w-full px-2">
 								<Row className="py-[1px]">
 									<Title className="text-[16px] px-1 !dark:text-gray-50">{username}</Title>

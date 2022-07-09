@@ -6,7 +6,9 @@
 	"coverageDirectory": "coverage/jest",
 	"coveragePathIgnorePatterns": [
 		"<rootDir>/node_modules/",
-		"<rootDir>/src/modules/LocalStorage.ts"
+		"<rootDir>/src/modules/LocalStorage.ts",
+		"<rootDir>/src/modules/TokenStorage.ts",
+		"<rootDir>/src/modules/Entities"
 	],
 	"coverageReporters": ["lcov", "text-summary"],
 	"coverageThreshold": {

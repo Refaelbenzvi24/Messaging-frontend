@@ -1,11 +1,12 @@
 // combineComponents.tsx
-import React, {FC} from 'react';
-import {ReactComponentProps} from "../types"
+import React, { FC } from 'react'
+import { ReactComponentProps } from "../types"
+
 
 export default (...components: FC[]) => {
 	return components.reduce(
 		(AccumulatedComponents, CurrentComponent) => {
-			return ({children}: ReactComponentProps) => {
+			return ({ children }: ReactComponentProps) => {
 				return (
 					<AccumulatedComponents>
 						<CurrentComponent>
@@ -14,6 +15,6 @@ export default (...components: FC[]) => {
 					</AccumulatedComponents>
 				)
 			}
-		}, ({children}: ReactComponentProps) => <>{children}</>,
+		}, ({ children }: ReactComponentProps) => <>{children}</>,
 	)
 }

@@ -6,8 +6,8 @@ registerSW({
 	immediate: true,
 	// Uncomment if you want Periodic Service Worker Updates - https://vite-plugin-pwa.netlify.app/guide/periodic-sw-updates.html
 	// onRegistered(r) {
-	//     r && setInterval(() => {
-	//         r.update().then()
+	//     r && setInterval(async () => {
+	//         await r.update()
 	//     }, intervalMS)
 	// }
 })

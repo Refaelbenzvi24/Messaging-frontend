@@ -1,5 +1,6 @@
-import {ReactElementProps} from "../../../types";
-import clsx from "clsx";
+import { ReactElementProps } from "../../../types"
+import clsx from "clsx"
+
 
 export default (props: ReactElementProps) => {
 	return (

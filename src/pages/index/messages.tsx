@@ -1,5 +1,6 @@
-import {Col, Row} from "../../components/UI/Grid";
-import {Outlet} from "react-router";
+import { Col, Row } from "../../components/UI/Grid"
+import { Outlet } from "react-router"
+
 
 export default () => {
 	return (
@@ -8,5 +9,5 @@ export default () => {
 				<Outlet/>
 			</Col>
 		</Row>
-)
+	)
 }

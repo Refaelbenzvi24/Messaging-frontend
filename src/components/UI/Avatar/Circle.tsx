@@ -1,4 +1,5 @@
-import {ReactElementProps} from "../../../types";
+import { ReactElementProps } from "../../../types"
+
 
 export default (props: ReactElementProps) => {
 	return (

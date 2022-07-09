@@ -13,4 +13,4 @@ export default (): void => {
 			NProgress.start()
 		}
 	}, [location])
-};
+}

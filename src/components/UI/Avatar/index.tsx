@@ -1,1 +1,1 @@
-export {default as CircleAvatar} from './Circle';
+export { default as CircleAvatar } from './Circle'

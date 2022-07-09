@@ -1,4 +1,4 @@
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import SideBar from './UI/SideBar/SideBar'
 import LinkButton from './UI/Buttons/LinkButton'
@@ -10,24 +10,16 @@ import Tooltip from './UI/Tooltip/Tooltip'
 import Row from './UI/Grid/Row'
 import Col from './UI/Grid/Col'
 import SideBarLink from './UI/SideBar/SideBarLink'
-import {auth} from "../services"
+import { auth } from "../services"
 import MessagesHistory from "./SideBar/MessagesHistory"
-import Title from "./UI/Typograpy/Title";
-import {contextManager} from "../context";
+import Title from "./UI/Typograpy/Title"
+import useAuth from "../hooks/useAuth"
 
 
 export default () => {
-	const {t} = useTranslation()
-	const navigate = useNavigate()
-	const {clearUserContextRefs} = contextManager()
-	
-	const logout = async () => {
-		await auth.logout(() => {
-			clearUserContextRefs()
-			navigate("/login")
-		})
-	}
-	
+	const { t }      = useTranslation()
+	const { logout } = useAuth()
+
 	return (
 		<div>
 			<SideBar>
@@ -43,17 +35,17 @@ export default () => {
 								</Link>
 							</Col>
 						</Row>
-						
+
 						<SideBarLink id="home-button">
 							<LinkButton to="/">{t('Home')}</LinkButton>
 						</SideBarLink>
-						
+
 						<Row className="w-full pt-2">
 							<Col className="w-full">
 								<LongDivider/>
 							</Col>
 						</Row>
-						
+
 						<Row className="w-full mt-5 bg-gray-50 dark:bg-dark-400">
 							<Col className="w-full">
 								<Title className="px-2 py-1 text-xl text-gray-600 dark:text-gray-200">
@@ -63,33 +55,33 @@ export default () => {
 							</Col>
 						</Row>
 					</div>
-					
+
 					<div>
 						<LongDivider/>
 						<div className="flex flex-row py-3 px-3 justify-around">
-							
+
 							<Tooltip className="bottom-[40px] left-[-20%]" tooltip={t('Settings')}>
 								<IconButton>
 									<IconMdiSettings/>
 								</IconButton>
 							</Tooltip>
-							
+
 							<Tooltip className="bottom-[40px] left-[-80%]" tooltip={t('Notifications')}>
 								<IconButton>
 									<IconMdiBellOutline/>
 								</IconButton>
 							</Tooltip>
-							
+
 							<ThemeToggle/>
-							
+
 							<LanguageSelector/>
-							
+
 							<Tooltip className="bottom-[40px] right-[-60%]" tooltip={t('Logout')}>
 								<IconButton onClick={logout}>
 									<IconMdiLogout/>
 								</IconButton>
 							</Tooltip>
-						
+
 						</div>
 					</div>
 				</div>

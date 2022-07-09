@@ -1,15 +1,15 @@
-import {
-	useRoutes,
-} from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
 import routes from '~react-pages'
 
 import ReloadPrompt from './components/ReloadPrompt'
-import {RecoilRoot} from 'recoil'
+import { RecoilRoot } from 'recoil'
 import Plugins from './plugins'
 import * as React from 'react'
-import {TokenStorage} from "./modules/TokenStorage";
-import {useEffect} from "react";
-import Providers from "./context";
+import { TokenStorage } from "./modules/TokenStorage"
+import { useEffect } from "react"
+import { Provider } from "react-redux"
+import store from "./store"
+import { AppContextProvider } from "./context"
 
 
 function Pages(): React.ReactElement | null {
@@ -18,19 +18,21 @@ function Pages(): React.ReactElement | null {
 
 export default () => {
 	Plugins()
-	
+
 	useEffect(() => {
 		(async () => {
 			await TokenStorage.checkForToken()
 		})()
 	}, [])
-	
+
 	return (
-		<Providers>
-			<RecoilRoot>
-				<ReloadPrompt/>
-				<Pages/>
-			</RecoilRoot>
-		</Providers>
+		<AppContextProvider>
+			<Provider store={store}>
+				<RecoilRoot>
+					<ReloadPrompt/>
+					<Pages/>
+				</RecoilRoot>
+			</Provider>
+		</AppContextProvider>
 	)
 }

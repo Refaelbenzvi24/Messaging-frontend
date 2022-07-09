@@ -1,8 +1,9 @@
-import Entity, {EntityProps} from './Entity'
-import {cloneDeep} from 'lodash'
-import {TokenStorage} from "../TokenStorage";
-import {LoginResult, RegisterResult} from "../../services/Auth/types";
-import {LocalStorage} from "../LocalStorage";
+import Entity, { EntityProps } from './Entity'
+import { cloneDeep } from 'lodash'
+import { TokenStorage } from "../TokenStorage"
+import { LoginResult, RegisterResult } from "../../services/Auth/types"
+import { LocalStorage } from "../LocalStorage"
+
 
 interface UserProps extends EntityProps {
 	id: string
@@ -12,23 +13,24 @@ interface UserProps extends EntityProps {
 }
 
 export class User extends Entity {
-	constructor(user: UserProps = cloneDeep(defaultData)) {
-		super(user)
-		this.id = user.id
-		this.email = user.email
-		this.name = user.name
-		this.password = user.password ?? ''
-	}
-	
 	id: string
 	email: string
 	name: string
 	password: string
-	
+
+	constructor(user: UserProps = cloneDeep(defaultData)) {
+		super(user)
+		this.id       = user.id
+		this.email    = user.email
+		this.name     = user.name
+		this.password = user.password ?? ''
+	}
+
+
 	transformExclude(params: string[] = ['password']) {
 		return super.transformExclude(params)
 	}
-	
+
 	static storeUserData(data: LoginResult | RegisterResult) {
 		TokenStorage.storeToken(data.token.accessToken)
 		TokenStorage.storeRefreshToken(data.token.refreshToken)
@@ -38,7 +40,7 @@ export class User extends Entity {
 		TokenStorage.storePublicId(data.user.publicId)
 		LocalStorage.setMessages([])
 	}
-	
+
 	static clearUserData() {
 		localStorage.removeItem(TokenStorage.LOCAL_STORAGE_TOKEN)
 		localStorage.removeItem(TokenStorage.LOCAL_STORAGE_REFRESH_TOKEN)
@@ -51,8 +53,8 @@ export class User extends Entity {
 }
 
 const defaultData = {
-	id: '',
-	email: '',
-	name: '',
+	id:       '',
+	email:    '',
+	name:     '',
 	password: '',
 }

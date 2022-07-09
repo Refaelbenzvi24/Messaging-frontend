@@ -4,7 +4,6 @@
 	"description": "messaging service frontend",
 	"main": "./dist/main.tsx",
 	"author": "Refael Ben Zvi",
-	"license": "MIT",
 	"scripts": {
 		"start": "pnpm run build & pnpm run serve",
 		"start:test": "pnpm run build:test & pnpm run serve:test",
@@ -34,6 +33,7 @@
 	"dependencies": {
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",
+		"@reduxjs/toolkit": "^1.8.3",
 		"@types/lodash": "^4.14.182",
 		"@xstate/react": "^1.6.3",
 		"axios": "^0.24.0",
@@ -52,6 +52,7 @@
 		"react-i18next": "^11.15.1",
 		"react-number-format": "^4.9.1",
 		"react-query": "^3.34.6",
+		"react-redux": "^8.0.2",
 		"react-router": "^6.2.1",
 		"react-router-dom": "^6.2.1",
 		"react-spinners-kit": "^1.9.1",

@@ -1,8 +1,9 @@
-import {Vars} from '../modules/vars'
+import { Vars } from '../modules/vars'
 import Auth from './Auth'
 
+
 const apiData = {
-	apiRootUrl: Vars.api.url,
+	apiRootUrl:        Vars.api.url,
 	apiCurrentVersion: Vars.api.version,
 }
 
