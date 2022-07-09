@@ -1,4 +1,3 @@
-// combineComponents.tsx
 import React, {FC} from 'react';
 import {ReactComponentProps} from "../types"
 

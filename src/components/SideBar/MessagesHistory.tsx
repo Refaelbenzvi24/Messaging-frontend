@@ -1,12 +1,13 @@
 import Col from "../UI/Grid/Col"
 import Row from "../UI/Grid/Row"
-import {useUsersStatus} from "../../context"
 import MessageButton from "./MessageButton"
 import Title from "../UI/Typograpy/Title";
+import { useRecoilValue } from "recoil"
+import usersStatusAtom from "../../recoil/atoms/usersStatusAtom"
 
 
 export default () => {
-	const {usersStatus} = useUsersStatus()
+	const usersStatus           = useRecoilValue(usersStatusAtom)
 	const transformedUsersStatus = usersStatus.map(userStatus => {
 		return {
 			socketId: userStatus.socketId,
@@ -17,8 +18,8 @@ export default () => {
 			online: userStatus.online
 		}
 	})
-	
-	
+
+
 	return (
 		<Row className="w-full py-4">
 			<Col className="w-full">

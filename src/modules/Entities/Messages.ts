@@ -1,24 +1,17 @@
-import {MessageProps} from "./Message";
-
-export interface MessagesProps {
-	publicId: string
-	socketId: string
-	username: string
-	messages: MessageProps[]
-}
+import { Message } from "./Message"
 
 export class Messages {
 	publicId: string
 	socketId: string
 	username: string
-	messages: MessageProps[]
-	
-	constructor(props: MessagesProps) {
+	messages: Message[]
+
+	constructor(props: Messages) {
 		this.publicId = props.publicId
 		this.socketId = props.socketId
 		this.username = props.username
 		this.messages = props.messages
 	}
-	
-	
+
+
 }
