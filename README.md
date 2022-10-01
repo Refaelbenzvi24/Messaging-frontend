@@ -5,6 +5,8 @@
 This project is the client side of the messaging service. <br/>
 It's a single page web chat application built with React and [Socket.io](https://socket.io/).
 
+[To the backend repo](https://github.com/Refaelbenzvi24/Messaging-backend)
+
 ## Getting Started
 
 > Requires Node >= 14
